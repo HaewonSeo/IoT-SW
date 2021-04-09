@@ -56,7 +56,7 @@ void FndDisplay(int pos, int num)
 		shift <<= 1;
 	}
 	if (pos == 2)						// pos2 decimal point on
-		digitalWrite(21, 1);
+		digitalWrite(FndPin[7], 1);
 
 	FndSelect(pos);
 }
@@ -73,7 +73,7 @@ int main()
 	while(1)
 	{
 		time = (millis() - startTime) / 10;		 // 1/100s timer
-		for (pos = 0; pos < 6; pos++)
+		for (pos = 0; pos < 6; pos++)			 // print time
 		{
 			FndDisplay(pos, time % 10);
 			time /= 10;

@@ -34,19 +34,22 @@ void setup() {
   pinMode(BUZZER, OUTPUT); // 5번 PIN을 출력으로 설정
 }
 
+// 2가지 방법이 있는데,
+// tone(pin, frequency, duration)을 사용하여 duration을 주고,
+// 추가적으로 delay(30); 라인이 포함된 코드가 더 뚜렷한 음을 낸다.
 void loop() {
   int i;
 
   for (i = 0; i < Num; i++) {
-    tone(BUZZER, Frequency[i]); // 5번 PIN을 통해 출력
-    delay(Delay[i]);            // 유지 시간
-    tone(BUZZER, REST, 30);     // 음사이 delay 주어 구별하기 위함
+    tone(BUZZER, Frequency[i], Delay[i]); // 5번 PIN을 통해 출력
+    delay(Delay[i] + 30);            // 유지 시간
+    //tone(BUZZER, REST, 30);     // 음사이 delay 주어 구별하기 위함
   }
   delay(1500);
   for (i = 0; i < Num2; i++) {
-    tone(BUZZER, Frequency2[i]);  // 5번 PIN을 통해 출력
-    delay(Delay2[i]);             // 유지 시간
-    tone(BUZZER, REST, 30);       // 음사이 delay 주어 구별하기 위함
+    tone(BUZZER, Frequency2[i], Delay2[i]);  // 5번 PIN을 통해 출력
+    delay(Delay2[i] + 30);             // 유지 시간
+    //tone(BUZZER, REST, 30);       // 음사이 delay 주어 구별하기 위함
   }
   delay(1500);
 }

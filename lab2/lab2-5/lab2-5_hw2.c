@@ -26,7 +26,7 @@ int main(void)
 		return 1;
 
 	pinMode(LED_PIN, OUTPUT);
-	
+
 	// initial pulse width : 0, pwmRange : 128
 	softPwmCreate(LED_PIN, 0, 128);
 

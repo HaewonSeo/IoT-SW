@@ -59,7 +59,7 @@ int main(void)
 
 	pinMode(MOTOR_MT_N_PIN, OUTPUT);
 	pinMode(MOTOR_MT_P_PIN, OUTPUT);
-	
+
 	// pwmRange : 128
 	softPwmCreate(MOTOR_MT_N_PIN, 0, 128);
 	softPwmCreate(MOTOR_MT_P_PIN, 0, 128);

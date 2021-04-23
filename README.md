@@ -14,6 +14,10 @@
 + lab2-4 : FND control
 + lab2-5 : Motor control
 
+### Midterm
++ midterm3 : Keypad + Buzzer
++ midterm4 : Timer (Keypad + FND)
+
 ### Lab3 : FreeRTOS on Arduino
 
 ### Lab4 : Embedded Linux on Raspberry Pi

@@ -19,6 +19,10 @@
 + midterm4 : Timer (Keypad + FND)
 
 ### Lab3 : FreeRTOS on Arduino
++ lab3-1 : Setup
++ lab3-2 : Multi-Tasking
++ lab3-3 : Inter-Task Communication
++ lab3-4 : Synchronization
 
 ### Lab4 : Embedded Linux on Raspberry Pi
 

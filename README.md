@@ -25,6 +25,10 @@
 + lab3-4 : Synchronization
 
 ### Lab4 : Embedded Linux on Raspberry Pi
++ lab4-1 : Setup
++ lab4-2 : Kernel programming1 : System Call
++ lab4-3 : Kernel programming2 : Device Driver
++ lab4-4 : Web server linkage LED control
 
 ### Lab5 : IoT Security
 

@@ -1,9 +1,9 @@
 MODULE_NAME=led_dd
-KDIR=/home/ubuntu/working/linux/
+KDIR=/home/haseo/working/linux/
 PWD=$(shell pwd)
 TARGET=arm
 TOOLCHAIN=arm-linux-gnueabihf-
-APP_NAME=digit_app
+APP_NAME=digit_app2
 
 obj-m:=$(MODULE_NAME).o
 

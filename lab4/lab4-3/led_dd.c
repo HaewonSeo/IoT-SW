@@ -39,6 +39,8 @@ const int Led[16] = {
 	6, 12, 13, 16, 19, 20, 26, 21
 };
 
+int led_color;
+
 static volatile void initGpioAddr(void) {
 	if(gpioAddr == NULL) {
 		gpioAddr = ioremap(GPIO_BASE, GPIO_SIZE);
@@ -100,15 +102,21 @@ static int led_write(struct file *filp, const char *buf,
 					 size_t len, loff_t *f_pos) {
 	int i;
 	char state;
+	int led_pos;
+
+	if (led_color == 0)
+		led_pos = 3;
+	else if (led_color == 1)
+		led_pos = 11;
 
 	for(i = 0; i < len; i++) {
 		copy_from_user(&state, &buf[i], 1);
 
 		if(state == '0') {
-			digitalWrite(Led[3-i], LOW);
+			digitalWrite(Led[led_pos-i], LOW);
 		}
 		else {
-			digitalWrite(Led[3-i], HIGH);
+			digitalWrite(Led[led_pos-i], HIGH);
 		}
 	}
 
@@ -117,11 +125,31 @@ static int led_write(struct file *filp, const char *buf,
 	return len;
 }
 
+static int led_ioctl(struct file *filep, unsigned int cmd, \ 
+						unsigned long arg)
+{
+	printk("[led_dd] led_ioctl() : set led_color to ");
+	
+	if (arg == 0)
+	{
+		printk("Red\n");
+		led_color = 0;
+	}
+	else if (arg == 1)
+	{
+		printk("Green\n");
+		led_color = 1;
+	}
+
+	return led_color;
+}
+
 static struct file_operations fops = {
-	.owner		= THIS_MODULE,
-	.open		= led_open,
-	.release	= led_release,
-	.write		= led_write,
+	.owner			= THIS_MODULE,
+	.open			= led_open,
+	.release		= led_release,
+	.write			= led_write,
+	.unlocked_ioctl	= led_ioctl,
 };
 
 static int led_init(void) {

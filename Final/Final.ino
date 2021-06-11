@@ -104,7 +104,7 @@ void FndTask(void *arg)
 			xQueueSend(xQueue, &eachTime, 0);
 			eachTime++;
 		}
--
+
 		//Print time
 		tmpTime = time;
 		for (pos = 0; pos < 6; pos++)

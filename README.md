@@ -31,7 +31,7 @@
 + lab4-4 : Web server linkage LED control
 
 ### Final
-+ Final : Timer(LEN + FND) with FreeRTOS
++ Final : Timer (LED + FND) with FreeRTOS
 
 ### Lab5 : IoT Security
 

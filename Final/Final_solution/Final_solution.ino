@@ -7,7 +7,7 @@ const int Led[8] = {3, 4, 5, 6, 7, 8, 9, 10};
 const int FndSelectPin[6] = {22, 23, 24, 25, 26, 27};
 const int FndPin[8] = {30, 31, 32, 33, 34, 35, 36, 37};
 const int FndFont[10] = {0x3F, 0x06, 0x5B, 0x4F, 0x66,
-						 0x60, 0x7D, 0x07, 0x7F, 0x67};
+						 0x6D, 0x7D, 0x07, 0x7F, 0x67};
 int SendValue = 0;
 
 void LedTask(void *arg)
@@ -43,7 +43,7 @@ void LedTask(void *arg)
 
 				//Reset FND
 				xQueueSend(xQueue2, &sendReset, 0);
-				vTaskDelay(MS2TICKS(100));
+				vTaskDelay(MS2TICKS(10));
 			}
 		}
 	}
@@ -86,17 +86,27 @@ void FndDisplay(int pos, int num)
 void FndTask(void *arg)
 {
 	int pos = 0;
-	int startTime = 0;
 	volatile int time = 0;
-	int tmpTime = 0;
 	int eachTime = 1;
 	int receiveReset = 0;
 
-	startTime = millis();
 
+	// 1/100s timer
 	while (1)
 	{
-		time = (millis() - startTime) / 10; // 1/100s timer
+		//Print time
+		for (pos = 0; pos < 6; pos++)
+		{
+			FndDisplay(pos, time % 10);
+			time /= 10;
+			vTaskDelay(MS2TICKS(1));
+		}
+
+		//10ms delay overall!
+		vTaskDelay(MS2TICKS(4));
+
+		//Increase time (+10ms)
+		time++;
 
 		//Send eachTime to LedTask every second
 		if ((time / 100) == eachTime)
@@ -105,23 +115,12 @@ void FndTask(void *arg)
 			eachTime++;
 		}
 
-		//Print time
-		tmpTime = time;
-		for (pos = 0; pos < 6; pos++)
-		{
-			FndDisplay(pos, tmpTime % 10);
-			tmpTime /= 10;
-			vTaskDelay(MS2TICKS(1));
-		}
-
 		//Reset FND
 		if (xQueueReceive(xQueue2, &receiveReset, 0))
 		{
 			if (receiveReset)
 			{
-				startTime = millis();
 				time = 0;
-				tmpTime = 0;
 				eachTime = 1;
 				receiveReset = 0;
 			}
@@ -164,8 +163,3 @@ void setup()
 void loop()
 {
 }
-
-
-// 3번 반복까지는 정상적인데, 그 이후로는 Timer 초기화시 time이 60000 정도의 값을 갖는 문제
-// 모든 LED는 정상적으로 OFF 된다. 그러나 Timer의 시간만이 비정상
-// Why?

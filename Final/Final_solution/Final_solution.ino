@@ -86,8 +86,9 @@ void FndDisplay(int pos, int num)
 void FndTask(void *arg)
 {
 	int pos = 0;
-	volatile int time = 0;
+	int time = 0;
 	int eachTime = 1;
+	int tmpTime = 0;
 	int receiveReset = 0;
 
 
@@ -95,10 +96,11 @@ void FndTask(void *arg)
 	while (1)
 	{
 		//Print time
+		tmpTime = time;
 		for (pos = 0; pos < 6; pos++)
 		{
-			FndDisplay(pos, time % 10);
-			time /= 10;
+			FndDisplay(pos, tmpTime % 10);
+			tmpTime /= 10;
 			vTaskDelay(MS2TICKS(1));
 		}
 
